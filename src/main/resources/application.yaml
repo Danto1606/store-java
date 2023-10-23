@@ -1,0 +1,43 @@
+#spring:
+#   datasource:
+#      url: jdbc:postgresql://localhost:5432/autophixer
+#      username: postgres
+#     password: 12344321
+#  
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#   format-sql: true
+       
+#spring:
+#datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/user
+#    username: root
+#    password: abc123
+#jpa:
+#    hibernate:
+#      ddl-auto: update
+#    generate-ddl: true
+#    show-sql: true
+    
+server:
+  port: 8000
+
+  
+spring:
+  datasource:
+    url: jdbc:h2:mem:book_store
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  h2:
+    console:
+      enabled: true  
+    
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
