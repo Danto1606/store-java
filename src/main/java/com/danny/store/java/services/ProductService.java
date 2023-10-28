@@ -1,4 +1,4 @@
-package com.danny.store.java.serviceInterfaces;
+package com.danny.store.java.services;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,5 +21,5 @@ public interface ProductService {
 			throws UserBadRequestException, PathNotFoundException;
 	String deleteProductById(Long id)
 			throws PathNotFoundException;
-	List<Product> getAllProducts(int pageNumber);
+	List<Product> getAllProducts(Integer pageNumber);
 }

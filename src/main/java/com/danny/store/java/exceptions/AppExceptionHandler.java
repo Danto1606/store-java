@@ -23,9 +23,25 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(UserBadRequestException.class)
 	public ResponseEntity<ErrorModel> userBadRequestException(UserBadRequestException exception, WebRequest request){
-		ErrorModel message = new ErrorModel(HttpStatus.NOT_FOUND, exception.getMessage());
+		ErrorModel message = new ErrorModel(HttpStatus.BAD_REQUEST, exception.getMessage());
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+		
+	}
+	
+	@ExceptionHandler(InvalidTokenException.class)
+	public ResponseEntity<ErrorModel> invaliTokenException(InvalidTokenException exception, WebRequest request){
+		ErrorModel message = new ErrorModel(HttpStatus.UNAUTHORIZED, exception.getMessage());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+		
+	}
+	
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<ErrorModel> loginException(LoginException exception, WebRequest request){
+		ErrorModel message = new ErrorModel(HttpStatus.BAD_REQUEST, exception.getMessage());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
 		
 	}
 }

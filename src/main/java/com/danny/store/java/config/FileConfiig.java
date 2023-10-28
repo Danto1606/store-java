@@ -1,4 +1,4 @@
-package com.danny.store.java.util;
+package com.danny.store.java.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

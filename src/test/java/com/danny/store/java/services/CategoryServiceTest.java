@@ -14,7 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.danny.store.java.entities.Category;
 import com.danny.store.java.exceptions.PathNotFoundException;
 import com.danny.store.java.repositories.CategoryRepository;
-import com.danny.store.java.serviceInterfaces.CategoryService;
+import com.danny.store.java.services.CategoryService;
 
 @SpringBootTest
 public class CategoryServiceTest {

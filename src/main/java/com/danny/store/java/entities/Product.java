@@ -39,5 +39,6 @@ public class Product {
 	private Category category;
 	
 	private List<String> images;
-
+	
+	
 }

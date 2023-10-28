@@ -1,4 +1,4 @@
-package com.danny.store.java.services;
+package com.danny.store.java.servicesImp;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.danny.store.java.exceptions.UserBadRequestException;
 import com.danny.store.java.models.ProductModel;
 import com.danny.store.java.repositories.CategoryRepository;
 import com.danny.store.java.repositories.ProductRepository;
-import com.danny.store.java.serviceInterfaces.ProductService;
+import com.danny.store.java.services.ProductService;
 import com.danny.store.java.util.ImageUtil;
 
 @Service
@@ -39,6 +39,11 @@ public class ProductServiceImp implements ProductService {
 			ProductModel product,
 			List<MultipartFile> images
 			) throws UserBadRequestException, IOException {
+		
+		if(images.size() > 5) {
+			throw new UserBadRequestException("images cannot be more than 5");
+		}
+		
 		Optional<Category> category = categoryRepository.findById(product.getCategoryId());
 		
 		product.setImages(
@@ -73,16 +78,20 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public String deleteProductById(Long id) throws PathNotFoundException {
-		if (!productRepository.existsById(id)) {
-			throw new PathNotFoundException("product not found");
-		}
+		
+		Optional<Product> result = productRepository.findById(id);
+		
+		if(result.isEmpty()) throw new PathNotFoundException();
+		
+		imageUtil.deleteAll(result.get().getImages());;
+		
 		productRepository.deleteById(id);
 		return "product deleted sucessfully";
 	}
 
 
 	@Override
-	public List<Product> getAllProducts(int pageNumber) {
+	public List<Product> getAllProducts(Integer pageNumber) {
 		
 		pageNumber = Objects.isNull(pageNumber) ? 0: pageNumber;
 		
@@ -95,7 +104,6 @@ public class ProductServiceImp implements ProductService {
 				.getContent();
 		
 	
-		
 		return result;
 	}
 

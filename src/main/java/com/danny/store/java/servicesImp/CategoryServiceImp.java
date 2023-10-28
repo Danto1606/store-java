@@ -1,4 +1,4 @@
-package com.danny.store.java.services;
+package com.danny.store.java.servicesImp;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import com.danny.store.java.entities.Product;
 import com.danny.store.java.exceptions.PathNotFoundException;
 import com.danny.store.java.exceptions.UserBadRequestException;
 import com.danny.store.java.repositories.CategoryRepository;
-import com.danny.store.java.serviceInterfaces.CategoryService;
+import com.danny.store.java.services.CategoryService;
 
 @Service
 public class CategoryServiceImp implements CategoryService{

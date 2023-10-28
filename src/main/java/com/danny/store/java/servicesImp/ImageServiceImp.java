@@ -1,10 +1,10 @@
-package com.danny.store.java.services;
+package com.danny.store.java.servicesImp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.danny.store.java.exceptions.PathNotFoundException;
-import com.danny.store.java.serviceInterfaces.ImageService;
+import com.danny.store.java.services.ImageService;
 import com.danny.store.java.util.ImageUtil;
 
 
@@ -25,13 +25,15 @@ public class ImageServiceImp implements ImageService{
 	}
 
 	@Override
-	public void deleteImage(
+	public String deleteImage(
 	String imageName, 
 	String parentFolder
 	) throws PathNotFoundException{
 		imageUtil.delete(
 				parentFolder + "/" + imageName
 				);
+		
+		return "image deleted";
 	}
 	
 	

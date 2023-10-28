@@ -3,6 +3,8 @@ package com.danny.store.java.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,7 @@ import com.danny.store.java.entities.Category;
 import com.danny.store.java.entities.Product;
 import com.danny.store.java.exceptions.PathNotFoundException;
 import com.danny.store.java.exceptions.UserBadRequestException;
-import com.danny.store.java.serviceInterfaces.CategoryService;
+import com.danny.store.java.services.CategoryService;
 
 @RestController
 @RequestMapping(path = "api/v1/categories")
@@ -27,17 +29,23 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@PostMapping
-	Category addCategory(@RequestBody Category category)
+	ResponseEntity<Category> addCategory(@RequestBody Category category)
 			throws UserBadRequestException {
 
-		return categoryService.addCategory(category);
+		return ResponseEntity
+				.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(categoryService.addCategory(category));
 	}
 
 	@PutMapping("{id}")
-	Category updateCategory(@PathVariable(name = "id") Long id, @RequestBody Category category)
+	ResponseEntity<Category> updateCategory(@PathVariable(name = "id") Long id, @RequestBody Category category)
 			throws PathNotFoundException, UserBadRequestException {
 
-		return categoryService.updateCategory(id, category);
+		return ResponseEntity
+				.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(categoryService.updateCategory(id, category));
 	}
 
 	@DeleteMapping("{id}")
@@ -48,25 +56,34 @@ public class CategoryController {
 	}
 
 	@GetMapping("{id}")
-	Category getCategoryById(@PathVariable(name = "id") Long id)
+	ResponseEntity<Category> getCategoryById(@PathVariable(name = "id") Long id)
 			throws PathNotFoundException {
 
-		return categoryService.getCategoryById(id);
+		return ResponseEntity
+				.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(categoryService.getCategoryById(id));
 	}
 
 	@GetMapping
-	List<Category> getAllCategories() {
-		return categoryService.getAllCategories();
+	ResponseEntity<List<Category>> getAllCategories() {
+		return ResponseEntity
+				.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(categoryService.getAllCategories());
 	}
 	
 	
 	@GetMapping("{categoryId}/products")
-	List<Product> getAllProducstByCategory(
+	ResponseEntity<List<Product>> getAllProducstByCategory(
 			@PathVariable(name = "categoryId") Long categoryId,
 			@RequestParam(name = "page", required = false) int pageNumber
 			) throws PathNotFoundException{
 		
-		return categoryService.getAllProductsByCategory(categoryId, pageNumber);
+		return ResponseEntity
+				.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(categoryService.getAllProductsByCategory(categoryId, pageNumber));
 	}
 	
 }

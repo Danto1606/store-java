@@ -56,14 +56,24 @@ public class ImageUtil {
 	public List<String> saveAll(
 			List<MultipartFile> images,
 			String parentFolder
-			) throws IOException, UserBadRequestException{
+			) throws UserBadRequestException, IOException{
 		
 		List<String> paths = new ArrayList<String>(images.size());
 		
 		for(MultipartFile image : images) {
-			paths.add(
-				save(image, parentFolder)
-			);
+			try {
+				paths.add(
+					save(image, parentFolder)
+				);
+			} catch (IOException e) {
+				for(String saved : paths) {
+					try {
+						delete(saved.substring(6));
+					} catch (PathNotFoundException e1) {
+						throw new IOException();
+					}
+				}
+			}
 		}
 		
 		return paths;
@@ -90,6 +100,17 @@ public class ImageUtil {
 			Files.delete(imagePath);
 		} catch (IOException e) {
 			throw new PathNotFoundException("resouce not found");
+		}
+	}
+	
+	public void deleteAll(List<String> images)  {
+		
+		for(String image : images) {
+			try {
+				delete(image);
+			} catch (PathNotFoundException e) {
+				
+			}
 		}
 	}
 	

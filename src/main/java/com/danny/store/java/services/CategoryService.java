@@ -1,4 +1,4 @@
-package com.danny.store.java.serviceInterfaces;
+package com.danny.store.java.services;
 
 import java.util.List;
 

@@ -19,7 +19,7 @@ import com.danny.store.java.entities.Product;
 import com.danny.store.java.exceptions.PathNotFoundException;
 import com.danny.store.java.exceptions.UserBadRequestException;
 import com.danny.store.java.models.ProductModel;
-import com.danny.store.java.serviceInterfaces.ProductService;
+import com.danny.store.java.services.ProductService;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -38,7 +38,7 @@ public class ProductController {
 	}
 
 	@GetMapping("{id}")
-	Product getProductById(@PathVariable("id") Long id)
+	Product getProductById(@PathVariable(name = "id", required =  false) Long id)
 			throws PathNotFoundException {
 
 		return productService.getProductById(id);
@@ -63,7 +63,7 @@ public class ProductController {
 
 	@GetMapping
 	List<Product> getAllProducts(
-			@RequestParam(name = "page", required = false) int pageNumber
+			@RequestParam(name = "page", required = false) Integer pageNumber
 			) {
 		
 		return productService.getAllProducts(pageNumber);
